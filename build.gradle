@@ -1,0 +1,18 @@
+group 'spark-kryo'
+version '1.0-SNAPSHOT'
+apply plugin: 'java'
+apply plugin: 'application'
+mainClassName = "io.cleverdata.dmpkit.BaseType"
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+ext.kryoVersion = project.hasProperty('kryoVersion') ? project.getProperty('kryoVersion') : '3.0.3'
+
+dependencies {
+    compile "com.esotericsoftware:kryo-shaded:${kryoVersion}"
+    testCompile 'junit:junit:4.12'
+}

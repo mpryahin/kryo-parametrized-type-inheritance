@@ -1,0 +1,66 @@
+/*
+ * Copyright (c) 2014, CleverDATA, LLC. All Rights Reserved.
+ *
+ * All information contained herein is, and remains the property of
+ * CleverDATA, LLC. The intellectual and technical concepts contained
+ * herein are proprietary to CleverDATA, LLC. Dissemination of this
+ * information or reproduction of this material is strictly forbidden
+ * unless prior written permission is obtained from CleverDATA, LLC.
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
+ * implied.
+ */
+
+ext {
+
+    repos = [
+        credentials: {
+            username mavenUser
+            password mavenPassword
+        }
+    ]
+    repos += [
+        publish: [
+            local: {
+                mavenLocal()
+            },
+            release: {
+                maven {
+                    url repoPublishReleaseUrl
+                    credentials repos.credentials
+                }
+            },
+            snapshot: {
+                maven {
+                    url repoPublishSnapshotUrl
+                    credentials repos.credentials
+                }
+            }
+        ],
+        resolve: [
+            release: {
+                maven {
+                    url repoResolveReleaseUrl
+                    credentials repos.credentials
+                }
+            },
+            snapshot: {
+                maven {
+                    url repoResolveSnapshotUrl
+                    credentials repos.credentials
+                }
+            },
+            local: {
+                mavenLocal()
+            }
+        ]
+    ]
+
+    // group all the resolve repository closures together
+    repos.resolve.all = repos.resolve.values().inject() { acc, repo -> acc << repo }
+    // smart publication that detects whether it's necessary to publish into snapshot or release repo
+    repos.publish.smart = project.version.endsWith('-SNAPSHOT') ? repos.publish.snapshot : repos.publish.release
+
+}
