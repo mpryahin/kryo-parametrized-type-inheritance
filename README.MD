@@ -1,4 +1,4 @@
-This test reproduces an issue with parameterized type hierarchy[1,2].
+This test reproduces an issue with parameterized type hierarchy[1,2].  
 Use kryoVersion to run against different kryo versions:
  
 -PkryoVersion=3.0.3 to reproduce the issue
@@ -9,5 +9,5 @@ Use kryoVersion to run against different kryo versions:
 
     ./gradlew run -PkryoVersion=4.0.0
 
-[1] https://github.com/EsotericSoftware/kryo/issues/384
-[2] https://github.com/EsotericSoftware/kryo/issues/377
+[1] https://github.com/EsotericSoftware/kryo/issues/384  
+[2] https://github.com/EsotericSoftware/kryo/issues/377  
