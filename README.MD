@@ -1,5 +1,5 @@
 This test reproduces an issue with parameterized type hierarchy[1,2].
-Use kryoVersion t0 run against different kryo versions:
+Use kryoVersion to run against different kryo versions:
  
 -PkryoVersion=3.0.3 to reproduce the issue
 
